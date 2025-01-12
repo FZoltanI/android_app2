@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_films"
+        android:enabled="true"
+        android:icon="@drawable/baseline_movie_24"
+        android:title="Filmek"/>
+    <item
+        android:id="@+id/menu_gallery"
+        android:enabled="true"
+        android:icon="@drawable/baseline_image_24"
+        android:title="Képek"/>
+</menu>
