@@ -1,7 +1,11 @@
 package com.fz.dolgozat2;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -12,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainPageActivity extends AppCompatActivity {
@@ -33,19 +38,42 @@ public class MainPageActivity extends AppCompatActivity {
         nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.menu_films){
+                if (item.getItemId() == R.id.menu_home){
+                    fragmentManager.beginTransaction().replace(R.id.fragmentContainerView, HomeFragment.class, null)
+                            .setReorderingAllowed(true)
+                            .addToBackStack("home")
+                            .commit();
+                }else if (item.getItemId() == R.id.menu_films){
                     fragmentManager.beginTransaction().replace(R.id.fragmentContainerView, FilmsFragment.class, null)
                             .setReorderingAllowed(true)
                             .addToBackStack("films")
                             .commit();
                 } else if (item.getItemId() ==  R.id.menu_gallery){
-                    fragmentManager.beginTransaction().replace(R.id.fragmentContainerView, ImagesFragment.class, null)
+                    fragmentManager.beginTransaction().replace(R.id.fragmentContainerView, IMDbFragment.class, null)
                             .setReorderingAllowed(true)
-                            .addToBackStack("gallery")
+                            .addToBackStack("imdb")
                             .commit();
                 }
 
                 return true;
+            }
+        });
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://www.youtube.com/watch?v=MAlSjtxy5ak";
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setPackage("com.google.android.youtube");
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
+                }
             }
         });
     }

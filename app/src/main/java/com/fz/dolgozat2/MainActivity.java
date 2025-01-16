@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 if (name.isEmpty()){
                     warningToast.show();
                 } else {
-                    toMainPage.putExtra("username", name);
+                    toMainPage.putExtra("name", name);
                     startActivity(toMainPage);
                 }
             }

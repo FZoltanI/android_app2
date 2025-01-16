@@ -7,13 +7,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ImagesFragment#newInstance} factory method to
+ * Use the {@link IMDbFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ImagesFragment extends Fragment {
+public class IMDbFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +27,7 @@ public class ImagesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ImagesFragment() {
+    public IMDbFragment() {
         // Required empty public constructor
     }
 
@@ -34,15 +37,18 @@ public class ImagesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ImagesFragment.
+     * @return A new instance of fragment IMDbFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ImagesFragment newInstance(String param1, String param2) {
-        ImagesFragment fragment = new ImagesFragment();
+    public static IMDbFragment newInstance(String param1, String param2) {
+        IMDbFragment fragment = new IMDbFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
+
+
         return fragment;
     }
 
@@ -53,12 +59,23 @@ public class ImagesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_images, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_imdb, container, false);
+
+        WebView vw = view.findViewById(R.id.webview);
+        WebSettings ws = vw.getSettings();
+        ws.setJavaScriptEnabled(true);
+        vw.setWebViewClient(new WebViewClient());
+        vw.loadUrl("https://www.imdb.com/");
+
+        return view;
     }
 }
