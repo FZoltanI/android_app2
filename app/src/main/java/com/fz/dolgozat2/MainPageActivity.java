@@ -14,12 +14,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.room.Room;
 
+import com.fz.dolgozat2.database.AppDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainPageActivity extends AppCompatActivity {
+    AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +62,16 @@ public class MainPageActivity extends AppCompatActivity {
             }
         });
 
+        Intent addFilmIntent = new Intent(this, AddFilmActivity.class);
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                addFilmIntent.putExtra("name", getIntent().getStringExtra("name"));
+                startActivity(addFilmIntent);
+
+                /*
                 String url = "https://www.youtube.com/watch?v=MAlSjtxy5ak";
                 try {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -74,7 +83,9 @@ public class MainPageActivity extends AppCompatActivity {
                     intent.setData(Uri.parse(url));
                     startActivity(intent);
                 }
+                 */
             }
         });
     }
+
 }
